@@ -14,13 +14,13 @@ export const createUser = async (req, res, next) => {
       req.body.name &&
       req.body.email &&
       req.body.phone &&
-      req.body.positionId &&
+      req.body.position_id &&
       req.file
     )
   )
     return next(createError(422, 'Validation failed', fails));
   try {
-    console.log(req.body);
+    console.log(req.body, req.file);
     res.status(200).json({
       success: true,
       user_id: 23,
@@ -31,6 +31,21 @@ export const createUser = async (req, res, next) => {
   }
 };
 
-export const getUsers = async (req, res, next) => {};
+export const getUsers = async (req, res, next) => {
+  res.status(200).json({ users: [1, 2, 3, 4, 5] });
+};
 
-export const getUserById = async (req, res, next) => {};
+export const getUserById = async (req, res, next) => {
+  res.status(200).json({
+    user: {
+      id: 1,
+      name: 'Superstar',
+      email: 'Superstar@gmail.com',
+      phone: '+380957398462',
+      position: 'Security',
+      position_id: 2,
+      photo:
+        'https://frontend-test-assignment-api.abz.agency/images/users/5b9626f0157d224.jpeg',
+    },
+  });
+};
