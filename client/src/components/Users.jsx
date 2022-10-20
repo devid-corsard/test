@@ -30,7 +30,7 @@ const Users = () => {
         <span className="title">Users</span>
         {err && <span>Something went wrong...</span>}
         {users.length ? (
-          users.map((user) => <User key={user} />)
+          users.map((user) => <User key={user.id} user={user} />)
         ) : (
           <button>Get users</button>
         )}

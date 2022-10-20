@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import User from './User';
 import axios from 'axios';
@@ -24,7 +23,7 @@ const UserDetails = () => {
     <div className="usersContainer">
       <div className="usersWrapper">
         <span className="title">User details:</span>
-        {user ? <User /> : <p>User not found</p>}
+        {user ? <User user={user} /> : <p>User not found</p>}
       </div>
       <div className="buttonsWrapper">
         <input

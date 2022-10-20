@@ -1,24 +1,19 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Positions = () => {
-  const positions = [
-    {
-      id: 1,
-      name: 'Security',
-    },
-    {
-      id: 2,
-      name: 'Designer',
-    },
-    {
-      id: 3,
-      name: 'Content manager',
-    },
-    {
-      id: 4,
-      name: 'Lawyer',
-    },
-  ];
+  const [positions, setPositions] = useState([]);
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      const res = await axios.get('/positions');
+      setPositions(res.data.positions);
+    };
+    fetchPositions();
+  }, []);
+
   return (
     <div className="positionsContainer">
       <div className="positionsWrapper">

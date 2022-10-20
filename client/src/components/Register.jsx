@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
+  const [currentUser, setCurrentUser] = useState({});
+  const [token, setToken] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -10,7 +13,6 @@ const Register = () => {
     const phone = e.target[2].value;
     const positionId = e.target[3].value;
     const photo = e.target[4].files[0];
-    console.log(name, email, phone, positionId);
 
     const formData = new FormData();
 
@@ -20,18 +22,24 @@ const Register = () => {
     formData.append('position_id', positionId);
     formData.append('photo', photo);
 
-    axios
-      .post('/users', formData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const res = await axios.post('/users', formData);
+    setCurrentUser({ id: res.data.user_id, name });
+
+    const token = await axios.get('/token');
+    setToken(token.data.token);
   };
 
   return (
     <div className="formContainer">
+      <div className="userLogin">
+        <p>
+          Username: <h2>{currentUser.name}</h2>
+        </p>
+        <p>your user_id:</p>
+        <input style={{ width: '400px' }} defaultValue={currentUser.id} />
+        <p>your token: </p>
+        <input style={{ width: '400px' }} defaultValue={token} />
+      </div>
       <div className="formWrapper">
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
