@@ -1,11 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 export const getToken = async (req, res, next) => {
-  const token = jwt.sign(
-    { uuid: Date.now().toString(32) },
-    process.env.TOKEN_KEY,
-    { expiresIn: '40m' }
-  );
+  const token = jwt.sign({ user_id: req.body.user_id }, process.env.TOKEN_KEY, {
+    expiresIn: '40m',
+  });
 
   res.status(200).cookie('token', token, { httpOnly: true }).json({
     success: true,

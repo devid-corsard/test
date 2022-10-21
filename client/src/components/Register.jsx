@@ -25,7 +25,7 @@ const Register = () => {
     const res = await axios.post('/users', formData);
     setCurrentUser({ id: res.data.user_id, name });
 
-    const token = await axios.get('/token');
+    const token = await axios.get('/token', { user_id: res.data.user_id });
     setToken(token.data.token);
   };
 
@@ -45,12 +45,7 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="name" />
           <input type="email" placeholder="email" />
-          <input
-            type="tel"
-            placeholder="phone"
-            pattern="^\+380[0-9]{9}"
-            defaultValue="+380"
-          />
+          <input type="tel" placeholder="phone" defaultValue="+380" />
           <small>Format: +380123456789</small>
           <input type="number" placeholder="positionId" />
           <p>Photo:</p>

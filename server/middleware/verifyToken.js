@@ -9,5 +9,4 @@ export const verifyToken = (req, res, next) => {
     if (err) return next(createError(403, 'Token is not valid'));
     next();
   });
-  // next();
 };
