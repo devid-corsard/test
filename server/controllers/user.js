@@ -101,10 +101,25 @@ export const getUsers = async (req, res, next) => {
 };
 
 export const getUserById = async (req, res, next) => {
+  if (!Number(req.params.id))
+    return next(
+      createError(400, 'Validation failed', { user_id: fails.user_id[0] })
+    );
+
   try {
     const client = await pool.connect();
     const { rows } = await client.query(SQL.SELECT_BY_ID, [req.params.id]);
     client.release();
+
+    if (!rows.length) {
+      return next(
+        createError(
+          404,
+          'The user with the requested identifier does not exist',
+          { user_id: fails.user_id[1] }
+        )
+      );
+    }
 
     res.status(200).json({
       user: rows[0],

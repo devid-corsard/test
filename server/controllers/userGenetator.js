@@ -2,7 +2,16 @@ import axios from 'axios';
 import { pool, SQL } from '../db.js';
 import { createError } from '../error.js';
 
+let allowGenerate = true;
+const TIMEOUT_GENERATE = 10_000;
+
 export const generateUsers = async (req, res, next) => {
+  if (!allowGenerate) {
+    res.status(200).json({
+      message: `You can generate only once a ${TIMEOUT_GENERATE / 1000}s`,
+    });
+    return;
+  }
   const link =
     'https://randomuser.me/api/?inc=name,email,registered,picture&results=45&noinfo';
   try {
@@ -28,6 +37,11 @@ export const generateUsers = async (req, res, next) => {
 
     client.release();
 
+    allowGenerate = false;
+    setTimeout(() => {
+      allowGenerate = true;
+    }, TIMEOUT_GENERATE);
+
     res.status(200).json({ message: 'Added 45 users to DB!' });
   } catch (err) {
     next(err);
@@ -43,7 +57,7 @@ export const deleteAllUsers = async (req, res, next) => {
 
     client.release();
 
-    res.status(200).json({ message: 'Database clear!' });
+    res.status(200).json({ message: 'Database cleared!' });
   } catch (err) {
     next(err);
   }

@@ -18,6 +18,8 @@ export const SQL = {
 
   SELECT_BY_OFFSET_AND_LIMIT: `
     SELECT * FROM users
+    LEFT JOIN positions
+    ON positions.position_id = users.position_id
     OFFSET $1 LIMIT $2
   `,
 
@@ -27,6 +29,14 @@ export const SQL = {
     LEFT JOIN positions
     ON positions.position_id = users.position_id
     WHERE id = $1
+  `,
+
+  SELECT_BY_PHONE_OR_EMAIL: `
+    SELECT *
+    FROM users
+    LEFT JOIN positions
+    ON positions.position_id = users.position_id
+    WHERE phone = $1 OR email = $2
   `,
 
   SELECT_POSITIONS: `SELECT * FROM positions`,

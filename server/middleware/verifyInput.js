@@ -1,6 +1,7 @@
 import fails from '../fails.js';
 import { createError } from '../error.js';
 import { validate } from 'deep-email-validator';
+import { pool, SQL } from '../db.js';
 
 export const verifyInput = async (req, res, next) => {
   const { name, email, phone, position_id } = req.body;
@@ -34,6 +35,23 @@ export const verifyInput = async (req, res, next) => {
 
   if (Object.keys(currentFails).length !== 0)
     return next(createError(422, 'Validation failed', currentFails));
+
+  try {
+    const client = await pool.connect();
+    const { rows } = await client.query(SQL.SELECT_BY_PHONE_OR_EMAIL, [
+      phone,
+      email,
+    ]);
+    client.release();
+
+    if (rows.length) {
+      return next(
+        createError(409, 'User with this phone or email already exist')
+      );
+    }
+  } catch (err) {
+    next(err);
+  }
 
   next();
 };

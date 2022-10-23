@@ -20,18 +20,18 @@ const UserDetails = () => {
   };
 
   return (
-    <div className="usersContainer">
-      <div className="usersWrapper">
+    <div className="userDetailsContainer">
+      <div className="userDetailsWrapper">
         <span className="title">User details:</span>
         {user ? <User user={user} /> : <p>User not found</p>}
-      </div>
-      <div className="buttonsWrapper">
-        <input
-          placeholder="User id"
-          onInput={(e) => setUserId(e.target.value)}
-        />
-        <button onClick={fetchUser}>Get user</button>
-        {err && <p>Wrong user id</p>}
+        <div className="buttonsWrapper">
+          <input
+            placeholder="User id"
+            onInput={(e) => setUserId(e.target.value)}
+          />
+          <button onClick={fetchUser}>Get user</button>
+          {err && <p>Wrong user id</p>}
+        </div>
       </div>
     </div>
   );

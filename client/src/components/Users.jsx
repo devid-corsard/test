@@ -6,23 +6,36 @@ import axios from 'axios';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const [page, setPage] = useState(1);
-  const [offset, setOffset] = useState(0);
-  const [count, setCount] = useState(5);
+  const [response, setResponse] = useState(null);
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    setOffset((page - 1) * count);
     try {
       const fetchUsers = async () => {
-        const res = await axios.get(`/users?page=${page}&count=${count}`);
+        const res = await axios.get(`/users?page=1&count=6`);
+        setResponse(res.data);
         setUsers(res.data.users);
       };
       fetchUsers();
     } catch (err) {
       setErr(true);
     }
-  }, [page, count]);
+  }, []);
+
+  const handleShowMore = async (e) => {
+    e.preventDefault();
+    if (!response?.links.next_url) return;
+    try {
+      const fetchUsers = async () => {
+        const res = await axios.get(response.links.next_url.slice(28));
+        setUsers([...users, ...res.data.users]);
+        setResponse(res.data);
+      };
+      fetchUsers();
+    } catch (err) {
+      setErr(true);
+    }
+  };
 
   return (
     <div className="usersContainer">
@@ -34,22 +47,12 @@ const Users = () => {
         ) : (
           <button>Get users</button>
         )}
-      </div>
-      <div className="buttonsWrapper">
-        <button onClick={() => page > 1 && setPage(page - 1)}>
-          {'<< prev'}
-        </button>
-        <span>Page: {page} </span>
-        <button onClick={() => setPage(page + 1)}>{'next >>'}</button>
-      </div>
-      <div className="countWrapper">
-        <span>Count: </span>
-        <input
-          type="number"
-          value={count}
-          onInput={(e) => setCount(e.target.value)}
-        />
-        <span>Offset: {offset} </span>
+        <div className="buttonsWrapper">
+          <span>Page: {response?.page} </span>
+          <span>Total pages: {response?.total_pages} </span>
+          <span>Total users: {response?.total_users} </span>
+          <button onClick={handleShowMore}>{'Show more...'}</button>
+        </div>
       </div>
     </div>
   );

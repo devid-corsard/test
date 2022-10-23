@@ -19,16 +19,18 @@ const Positions = () => {
       <div className="positionsWrapper">
         <span className="title">Positions List</span>
         <table>
-          <tr>
-            <th>ID</th>
-            <th>Position</th>
-          </tr>
-          {positions.map((position) => (
+          <tbody>
             <tr>
-              <td>{position.id}</td>
-              <td>{position.name}</td>
+              <th>ID</th>
+              <th>Position</th>
             </tr>
-          ))}
+            {positions.map((position) => (
+              <tr key={position.id}>
+                <td>{position.id}</td>
+                <td>{position.name}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

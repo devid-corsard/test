@@ -3,7 +3,7 @@ import { deleteAllUsers, generateUsers } from '../controllers/userGenetator.js';
 
 const router = Router();
 
-router.get('/', generateUsers);
-router.get('/delete', deleteAllUsers);
+router.post('/', generateUsers);
+router.delete('/', deleteAllUsers);
 
 export default router;

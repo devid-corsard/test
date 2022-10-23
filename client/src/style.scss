@@ -5,31 +5,20 @@ $mainDarkest: #014040;
 $accent: #F27405;
 $accentDark: #731702;
 
-@mixin mobile {
-  @media screen and (max-width: 480px) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media screen and (max-width: 800px) {
-    @content;
-  }
-}
-
-@mixin laptop {
-  @media screen and (max-width: 1200px) {
-    @content;
-  }
+.appContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: $main;
+  padding: 40px;
 }
 
 .formContainer {
   background-color: $main;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 
   .userLogin {
     background-color: $accent;
@@ -39,6 +28,7 @@ $accentDark: #731702;
     gap: 10px;
     padding: 10px;
     margin: 10px;
+    width: 380px;
   }
 
   .formWrapper {
@@ -114,21 +104,23 @@ $accentDark: #731702;
 
 .usersContainer {
   background-color: $main;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 10px;
+  position: relative;
+
 
   .usersWrapper {
     background-color: white;
+    height: 623px;
     padding: 20px 60px;
     border-radius: 2px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 5px;
     width: 500px;
-    max-height: 700px;
     overflow: scroll;
 
     .title {
@@ -137,25 +129,108 @@ $accentDark: #731702;
       font-size: 18px;
     }
 
-    .userContainer {
-      .userWrapper {
-        display: flex;
-        gap: 10px;
-        border: 1px solid $accent;
-        padding: 10px;
-        cursor: pointer;
+  }
 
-        &:hover {
-          background-color: $mainLight;
-        }
+  .buttonsWrapper {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    gap: 20px;
+    margin: 10px;
 
-        img {
-          width: 72px;
-          height: 72px;
-          object-fit: cover;
-        }
+    button {
+      background-color: $accent;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    span {
+      color: black;
+
+    }
+  }
+
+  .countWrapper {
+    color: white;
+
+    input {
+      background-color: transparent;
+      color: white;
+      border: none;
+      width: 50px;
+      font-size: 24px;
+      border-bottom: 2px solid $mainDarker;
+      text-align: center;
+      outline: none;
+    }
+  }
+}
+
+.userContainer {
+  .userWrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid $accent;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $mainLight;
+    }
+
+    img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+    }
+
+    .details {
+
+      th {
+        font-weight: 200;
+        font-size: 12px;
+        text-align: right;
+      }
+
+      td {
+        font-size: 14px;
+        padding-left: 10px;
       }
     }
+  }
+}
+
+.userDetailsContainer {
+  background-color: $main;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+
+  .userDetailsWrapper {
+    background-color: white;
+    height: 150px;
+    padding: 20px 60px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 500px;
+    overflow: scroll;
+
+    .title {
+      color: $accent;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+
   }
 
   .buttonsWrapper {
@@ -193,18 +268,20 @@ $accentDark: #731702;
 
 .positionsContainer {
   background-color: $main;
-  height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  margin: 10px;
 
   .positionsWrapper {
     background-color: white;
+    height: 300px;
     padding: 20px 60px;
     border-radius: 2px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+    overflow: scroll;
   }
 
   table {
@@ -243,4 +320,25 @@ img {
   width: 72px;
   height: 72px;
   object-fit: cover;
+}
+
+.adminContainer {
+  margin: 10px;
+
+
+  .adminWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: $mainDarker;
+    padding: 10px;
+    color: white;
+
+
+
+    .red {
+      background-color: $accentDark;
+      color: white;
+    }
+  }
 }

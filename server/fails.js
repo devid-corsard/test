@@ -6,4 +6,5 @@ export default {
   photo: ['The photo may not be greater than 5 Mbytes.', 'Image is invalid.'],
   count: ['The count must be an integer.'],
   page: ['The page must be at least 1.'],
+  user_id: ['The user_id must be an integer.', 'User not found'],
 };

@@ -32,13 +32,11 @@ const Register = () => {
   return (
     <div className="formContainer">
       <div className="userLogin">
-        <p>
-          Username: <h2>{currentUser.name}</h2>
-        </p>
+        <h2>Username: {currentUser.name}</h2>
         <p>your user_id:</p>
-        <input style={{ width: '400px' }} defaultValue={currentUser.id} />
+        <input defaultValue={currentUser.id} />
         <p>your token: </p>
-        <input style={{ width: '400px' }} defaultValue={token} />
+        <input defaultValue={token} />
       </div>
       <div className="formWrapper">
         <span className="title">Register</span>
@@ -51,6 +49,7 @@ const Register = () => {
           <p>Photo:</p>
           <input type="file" name="photo" />
           <button>Register</button>
+          {token && <span>Succsess!</span>}
         </form>
       </div>
     </div>
