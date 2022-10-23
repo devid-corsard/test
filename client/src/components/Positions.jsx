@@ -2,7 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8800/api/v1';
+
+axios.defaults.baseURL = '/api/v1';
 
 const Positions = () => {
   const [positions, setPositions] = useState([]);

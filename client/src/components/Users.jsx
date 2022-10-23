@@ -9,17 +9,18 @@ const Users = () => {
   const [response, setResponse] = useState(null);
   const [err, setErr] = useState(false);
 
-  useEffect(() => {
+  const fetchUsers = async () => {
     try {
-      const fetchUsers = async () => {
-        const res = await axios.get(`/users?page=1&count=6`);
-        setResponse(res.data);
-        setUsers(res.data.users);
-      };
-      fetchUsers();
+      const res = await axios.get(`/users?page=1&count=6`);
+      setResponse(res.data);
+      setUsers(res.data.users);
     } catch (err) {
       setErr(true);
     }
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   const handleShowMore = async (e) => {
@@ -45,7 +46,7 @@ const Users = () => {
         {users?.length ? (
           users.map((user) => <User key={user.id} user={user} />)
         ) : (
-          <button>Get users</button>
+          <button onClick={fetchUsers}>Get users</button>
         )}
         <div className="buttonsWrapper">
           <span>Page: {response?.page} </span>
