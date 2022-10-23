@@ -28,7 +28,7 @@ const Users = () => {
     if (!response?.links.next_url) return;
     try {
       const fetchUsers = async () => {
-        const res = await axios.get(response.links.next_url.slice(28));
+        const res = await axios.get(response.links.next_url);
         setUsers([...users, ...res.data.users]);
         setResponse(res.data);
       };
