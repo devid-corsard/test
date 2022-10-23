@@ -42,7 +42,7 @@ const Users = () => {
       <div className="usersWrapper">
         <span className="title">Users</span>
         {err && <span>Something went wrong...</span>}
-        {users.length ? (
+        {users?.length ? (
           users.map((user) => <User key={user.id} user={user} />)
         ) : (
           <button>Get users</button>

@@ -6,8 +6,8 @@ import photoRoutes from './routes/photoRoutes.js';
 import generatorRoutes from './routes/generatorRoutes.js';
 import positionsRoutes from './routes/positionsRoutes.js';
 import cookieParser from 'cookie-parser';
-
 import pg from 'pg';
+import path from 'path';
 
 dotenv.config();
 
@@ -25,6 +25,11 @@ export const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static(path.resolve('../client/build')));
+
+app.get(['/', '/:path'], (req, res) => {
+  res.sendFile(path.resolve('../client/build/index.html'));
+});
 
 app.use('/api/v1/token', tokenRoutes);
 app.use('/api/v1/users', usersRoutes);
@@ -56,5 +61,5 @@ app.use((err, res, req, next) => {
 
 app.listen(port, () => {
   // connect();
-  console.log('Connected to server');
+  console.log('Connected to server on port: ' + port);
 });
