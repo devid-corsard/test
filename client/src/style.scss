@@ -29,6 +29,15 @@ $accentDark: #731702;
     padding: 10px;
     margin: 10px;
     width: 380px;
+
+    button {
+      background-color: #03A678;
+      width: 120px;
+    }
+
+    span {
+      color: white;
+    }
   }
 
   .formWrapper {

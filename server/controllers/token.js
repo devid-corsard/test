@@ -12,7 +12,7 @@ export const getToken = async (req, res, next) => {
 };
 
 export const confirmToken = async (req, res, next) => {
-  const token = req.cookies.token || req.headers.token;
+  const token = req.headers.token || req.cookies.token;
   res.status(200).json({
     success: true,
     token,

@@ -15,7 +15,7 @@ CREATE TABLE users (
 	phone VARCHAR(13) NOT NULL,
 	position_id BIGINT NOT NULL REFERENCES positions(position_id),
 	photo VARCHAR(1000) NOT NULL,
-	registration_timestamp TIMESTAMP NOT NULL,
+	registration_timestamp TIMESTAMP NOT NULL
 )
 
 INSERT INTO positions (position) VALUES('Security');

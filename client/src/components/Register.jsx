@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [token, setToken] = useState(null);
+  const [verified, setVerified] = useState(null);
+  const tokenInput = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,11 +24,30 @@ const Register = () => {
     formData.append('position_id', positionId);
     formData.append('photo', photo);
 
-    const res = await axios.post('/users', formData);
-    setCurrentUser({ id: res.data.user_id, name });
+    try {
+      const res = await axios.post('/users', formData);
+      setCurrentUser({ id: res.data.user_id, name });
 
-    const token = await axios.get('/token', { user_id: res.data.user_id });
-    setToken(token.data.token);
+      const token = await axios.get('/token', { user_id: res.data.user_id });
+      setToken(token.data.token);
+    } catch (err) {}
+  };
+
+  const handleVerifyToken = async () => {
+    try {
+      const res = await axios.get('/token/verify', {
+        headers: { token: tokenInput.current.value || 'not a token' },
+      });
+      if (res.data.success) setVerified('Verified!');
+      setTimeout(() => {
+        setVerified(null);
+      }, 5000);
+    } catch (err) {
+      setVerified(err.response.data.message);
+      setTimeout(() => {
+        setVerified(null);
+      }, 5000);
+    }
   };
 
   return (
@@ -36,7 +57,9 @@ const Register = () => {
         <p>your user_id:</p>
         <input defaultValue={currentUser.id} />
         <p>your token: </p>
-        <input defaultValue={token} />
+        <input defaultValue={token} ref={tokenInput} />
+        <button onClick={handleVerifyToken}>Verify token</button>
+        {verified && <span>{verified}</span>}
       </div>
       <div className="formWrapper">
         <span className="title">Register</span>
