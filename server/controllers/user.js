@@ -21,7 +21,7 @@ export const createUser = async (req, res, next) => {
       rows: [user],
     } = await client.query(SQL.CREATE_USER, [
       name,
-      email,
+      email.toLowerCase(),
       phone,
       position_id,
       image,

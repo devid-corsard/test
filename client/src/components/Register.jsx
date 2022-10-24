@@ -35,7 +35,7 @@ const Register = () => {
 
   const handleVerifyToken = async () => {
     try {
-      const res = await axios.get('/token/verify', {
+      const res = await axios.post('/token/verify', {
         headers: { token: tokenInput.current.value || 'not a token' },
       });
       if (res.data.success) setVerified('Verified!');
@@ -49,6 +49,12 @@ const Register = () => {
       }, 5000);
     }
   };
+  const handleGetToken = async () => {
+    try {
+      const res = await axios.get('/token');
+      setToken(res.data.token);
+    } catch (err) {}
+  };
 
   return (
     <div className="formContainer">
@@ -57,7 +63,8 @@ const Register = () => {
         <p>your user_id:</p>
         <input defaultValue={currentUser.id} />
         <p>your token: </p>
-        <input defaultValue={token} ref={tokenInput} />
+        <textarea defaultValue={token} ref={tokenInput} rows="4" />
+        <button onClick={handleGetToken}>Get token</button>
         <button onClick={handleVerifyToken}>Verify token</button>
         {verified && <span>{verified}</span>}
       </div>
@@ -72,7 +79,7 @@ const Register = () => {
           <p>Photo:</p>
           <input type="file" name="photo" />
           <button>Register</button>
-          {token && <span>Succsess!</span>}
+          {currentUser.name && <span>Succsess!</span>}
         </form>
       </div>
     </div>

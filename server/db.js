@@ -63,4 +63,15 @@ export const SQL = {
     DELETE FROM users
     WHERE id>0
   `,
+
+  NEW_TOKEN: `
+    INSERT INTO token(body)
+    VALUES($1)
+  `,
+
+  CHECK_TOKEN_AND_DELETE: `
+    DELETE FROM token
+    WHERE body = $1
+    RETURNING body
+  `,
 };

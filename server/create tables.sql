@@ -28,3 +28,8 @@ SELECT * FROM users
     LEFT JOIN positions
     ON positions.id = users.position_id
 
+CREATE TABLE token (
+	token_id BIGSERIAL NOT NULL PRIMARY KEY,
+	body VARCHAR(300) NOT NULL
+)
+

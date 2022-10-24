@@ -1,5 +1,8 @@
 export default {
-  name: ['The name must be at least 2 characters.'],
+  name: [
+    'The name must be at least 2 characters.',
+    'The name must be no longer than 50 characters.',
+  ],
   email: ['The email must be a valid email address.'],
   phone: ['The phone field is required.'],
   position_id: ['The position id must be an integer.'],

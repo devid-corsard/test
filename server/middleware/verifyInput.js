@@ -8,6 +8,7 @@ export const verifyInput = async (req, res, next) => {
   const currentFails = {};
 
   if (!name || String(name).length < 2) currentFails.name = fails.name[0];
+  if (!name || String(name).length > 50) currentFails.name = fails.name[1];
 
   const isEmail = await validate({
     email,
@@ -40,7 +41,7 @@ export const verifyInput = async (req, res, next) => {
     const client = await pool.connect();
     const { rows } = await client.query(SQL.SELECT_BY_PHONE_OR_EMAIL, [
       phone,
-      email,
+      email.toLowerCase(),
     ]);
     client.release();
 
