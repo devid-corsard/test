@@ -14,6 +14,7 @@ const Users = () => {
       const res = await axios.get(`/users?page=1&count=6`);
       setResponse(res.data);
       setUsers(res.data.users);
+      setErr(false);
     } catch (err) {
       setErr(true);
     }
@@ -31,6 +32,7 @@ const Users = () => {
         const res = await axios.get(response.links.next_url);
         setUsers([...users, ...res.data.users]);
         setResponse(res.data);
+        setErr(false);
       };
       fetchUsers();
     } catch (err) {

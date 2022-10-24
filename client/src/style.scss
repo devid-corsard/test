@@ -21,8 +21,8 @@ $accentDark: #731702;
   align-items: center;
 
   .userLogin {
-    background-color: $accent;
-    color: white;
+    background-color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -30,13 +30,39 @@ $accentDark: #731702;
     margin: 10px;
     width: 380px;
 
+    h2 {
+      color: $accent;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    input,
+    textarea {
+      padding: 5px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.03);
+      color: black;
+      // width: 250px;
+      border-bottom: 1px solid $accent;
+
+      &::placeholder {
+        color: rgb(175, 175, 175);
+      }
+    }
+
+    .controlButtons {
+      display: flex;
+      gap: 10px;
+    }
+
     button {
       background-color: #03A678;
       width: 120px;
     }
 
     span {
-      color: white;
+      color: black;
+      font-size: 14px;
     }
   }
 
@@ -123,7 +149,7 @@ $accentDark: #731702;
 
   .usersWrapper {
     background-color: white;
-    height: 623px;
+    height: 726px;
     padding: 20px 60px;
     border-radius: 2px;
     display: flex;

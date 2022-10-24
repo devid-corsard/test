@@ -64,9 +64,11 @@ const Register = () => {
         <input defaultValue={currentUser.id} />
         <p>your token: </p>
         <textarea defaultValue={token} ref={tokenInput} rows="4" />
-        <button onClick={handleGetToken}>Get token</button>
-        <button onClick={handleVerifyToken}>Verify token</button>
-        {verified && <span>{verified}</span>}
+        <div className="controlButtons">
+          <button onClick={handleGetToken}>Get token</button>
+          <button onClick={handleVerifyToken}>Verify token</button>
+          {verified && <span>{verified}</span>}
+        </div>
       </div>
       <div className="formWrapper">
         <span className="title">Register</span>
