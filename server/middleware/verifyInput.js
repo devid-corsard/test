@@ -51,6 +51,7 @@ export const verifyInput = async (req, res, next) => {
       );
     }
   } catch (err) {
+    console.error('Failed to check if email or phone exists:', err);
     next(err);
   }
 

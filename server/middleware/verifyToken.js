@@ -12,6 +12,7 @@ export const verifyToken = async (req, res, next) => {
     client.release();
     if (!rows.length) return next(createError(403, 'Token is not valid'));
   } catch (err) {
+    console.error('Failed to check token:', err);
     next(err);
   }
 

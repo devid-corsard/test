@@ -35,6 +35,7 @@ export const createUser = async (req, res, next) => {
       message: 'New user successfully registered',
     });
   } catch (err) {
+    console.error('Failed to create new user:', err);
     next(err);
   }
 };
@@ -96,6 +97,7 @@ export const getUsers = async (req, res, next) => {
 
     res.status(200).json(data);
   } catch (err) {
+    console.error('Failed to get users:', err);
     next(err);
   }
 };
@@ -125,6 +127,7 @@ export const getUserById = async (req, res, next) => {
       user: rows[0],
     });
   } catch (err) {
+    console.error('Failed to get user by id:', err);
     next(err);
   }
 };

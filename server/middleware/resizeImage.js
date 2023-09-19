@@ -4,7 +4,7 @@ import tinify from 'tinify';
 
 tinify.key = process.env.TINIFY_KEY;
 
-export const resizeImage = async (req, res, next) => {
+export const resizeImage = async (req, _res, next) => {
   try {
     const file = req.file;
     if (!file) return next();
@@ -26,6 +26,7 @@ export const resizeImage = async (req, res, next) => {
 
     next();
   } catch (err) {
+    console.error('Failed to resize image:', err);
     next(err);
   }
 };

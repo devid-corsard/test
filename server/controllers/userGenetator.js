@@ -44,6 +44,7 @@ export const generateUsers = async (req, res, next) => {
 
     res.status(200).json({ message: 'Added 45 users to DB!' });
   } catch (err) {
+    console.error('Failed to generate users:', err);
     next(err);
   }
 };
@@ -59,6 +60,7 @@ export const deleteAllUsers = async (req, res, next) => {
 
     res.status(200).json({ message: 'Database cleared!' });
   } catch (err) {
+    console.error('Failed to delete all users:', err);
     next(err);
   }
 };

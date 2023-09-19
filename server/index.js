@@ -18,8 +18,6 @@ const { Pool } = pg;
 export const db = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
-// const client = await pool.connect();
-// const { rows } = await client.query(SQL.GET_ALL);
 
 export const app = express();
 
@@ -27,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.resolve('../client/build')));
 
-app.get(['/', '/:path'], (req, res) => {
+app.get(['/', '/:path'], (_req, res) => {
   res.sendFile(path.resolve('../client/build/index.html'));
 });
 
@@ -36,7 +34,7 @@ app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/positions', positionsRoutes);
 app.use('/api/v1/generate', generatorRoutes);
 app.use('/photo', photoRoutes);
-app.use((err, res, req, next) => {
+app.use((err, _res, req, _next) => {
   if (err.message === 'File too large') {
     req.status(422).json({
       succsess: false,
@@ -46,7 +44,7 @@ app.use((err, res, req, next) => {
         photo: 'The photo may not be greater than 5 Mbytes.',
       },
     });
-  } else {
+  } else if (err.custom) {
     const status = err.status || 500;
     const message = err.message || 'Something went wrong';
     const fails = err.fails || undefined;
@@ -56,10 +54,16 @@ app.use((err, res, req, next) => {
       message,
       fails,
     });
+  } else {
+    console.error('Unhandled, unpredicted, unexpected error:', err);
+    req.status(500).json({
+      succsess: false,
+      status: 500,
+      message: 'Something went wrong',
+    });
   }
 });
 
 app.listen(port, () => {
-  // connect();
   console.log('Connected to server on port: ' + port);
 });

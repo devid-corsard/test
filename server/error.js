@@ -3,5 +3,6 @@ export const createError = (status, message, fails) => {
   err.status = status;
   err.message = message;
   err.fails = fails || undefined;
+  err.custom = true;
   return err;
 };
