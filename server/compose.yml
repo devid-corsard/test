@@ -1,0 +1,45 @@
+services:
+  postgres:
+    container_name: ${POSTGRES_HOST}
+    image: postgres:15-alpine
+    volumes:
+      - type: bind
+        source: ~/db_data/abz
+        target: /var/lib/postgresql/data
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - 5432:5432
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  abz_server:
+    container_name: abz_server
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: ../storage
+        target: /storage
+    ports:
+      - 8800:${PORT}
+    networks:
+      - default
+      - nginx
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  nginx:
+    name: nginx-for-all
+    external: true
