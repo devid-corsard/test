@@ -11,8 +11,6 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PW}
       - POSTGRES_DB=${POSTGRES_DB}
-    ports:
-      - 5432:5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -31,7 +29,7 @@ services:
         source: ../storage
         target: /storage
     ports:
-      - 8800:${PORT}
+      - 18800:${PORT}
     networks:
       - default
       - nginx
