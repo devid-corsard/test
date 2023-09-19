@@ -1,3 +1,4 @@
+name: abz
 services:
   postgres:
     container_name: ${POSTGRES_HOST}
